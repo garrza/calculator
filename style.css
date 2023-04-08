@@ -1,7 +1,8 @@
 :root {
-    --primary-dark: #386641;
+    --primary-green: #386641;
+    --primary-dark: #353535;
     --primary-light: #f5fffa;
-    --secondary-light: #dde6e1;
+    --calculator-color: #fca311;
 }
 
 
@@ -13,7 +14,7 @@ html {
 
 body {
     background-color: var(--primary-light);
-    color: var(--primary-dark);
+    color: var(--primary-green);
     font-family: 'VT323', monospace;
     line-height: 1.6;
     /* footer support */
