@@ -1,0 +1,21 @@
+:root {
+    --primary-dark: #386641;
+    --primary-light: #f5fffa;
+    --secondary-light: #dde6e1;
+}
+
+
+html {
+    /* footer support */
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-family: 'VT323', monospace;
+    line-height: 1.6;
+    /* footer support */
+    margin-bottom: 100px;
+}
