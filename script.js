@@ -28,11 +28,10 @@ const display = document.getElementById("total");
 
 
 function operate(lastNum, currentMode, currentNum){
-    
 }
 
 function updateDisplay(total) {
-    display.innerHTML = total;
+    display.innerText = total;
 }
 
 function setupCalc() {
@@ -40,12 +39,14 @@ function setupCalc() {
         const numElement = document.createElement("button");
         numElement.id = "number-" + i;
         numElement.classList.add("digit");
+        numElement.classList.add("press");
         numElement.textContent = i;
         digits.appendChild(numElement);
     }
     const numElement = document.createElement("button");
     numElement.id = "number-0";
     numElement.classList.add("digit");
+    numElement.classList.add("press");
     numElement.textContent = 0;
     digits.appendChild(numElement);
 }
