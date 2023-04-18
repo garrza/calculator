@@ -69,7 +69,7 @@ function evaluate(){
     }
     lastNum = currentOperationScreen.textContent;
     currentOperationScreen.textContent = roundResult(operate(currentMode, currentNum, lastNum));
-    lastOperationScreen.textContent = `${lastNum} ${currentMode} ${currentNum} =`;
+    lastOperationScreen.textContent = `${currentNum} ${currentMode} ${lastNum} =`;
     currentMode = null;
 }
     
