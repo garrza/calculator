@@ -80,7 +80,7 @@ function roundResult(number) {
 function handleKeyboardInput(e) {
     if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
     if (e.key === "=" || e.key === "Enter") evaluate();
-    if (e.key === "Escape") clear();
+    if (e.key === "c") clear();
     if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") setOperation(convertOperator(e.key));
 }
 

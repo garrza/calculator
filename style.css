@@ -26,9 +26,12 @@ body {
 
 .header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     font-size: larger;
 }
+
 
 .calculator {
     width: 400px;
