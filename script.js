@@ -1,58 +1,126 @@
 const DEFAULT_CURRENT = 0;
 const DEFAULT_LAST = 0;
-const DEFAULT_MODE = "equals";
+const DEFAULT_MODE = null;
+
 
 let currentNum = DEFAULT_CURRENT;
 let lastNum = DEFAULT_LAST;
 let currentMode = DEFAULT_MODE;
-let total = 0;
+let shouldResetScreen = false;
 
-function setNewNum(newNum){
-    lastNum = currentNum;
-    currentNum = newNum;
+const digitButtons = document.querySelectorAll(".digit");
+const operatorButtons = document.querySelectorAll(".operator");
+const addButton = document.getElementById("add");
+const subtractButton = document.getElementById("subtract");
+const multiplyButton = document.getElementById("multiply");
+const divideButton = document.getElementById("divide");
+const equalsButton = document.getElementById("equals");
+const acButton = document.getElementById("ac");
+const lastOperationScreen = document.getElementById("lastOperationScreen")
+const currentOperationScreen = document.getElementById("currentOperationScreen")
+
+
+window.addEventListener("keydown", handleKeyboardInput);
+equalsButton.addEventListener("click", evaluate);
+acButton.addEventListener("click", clear);
+
+
+digitButtons.forEach((digit) =>
+digit.addEventListener("click", () => appendNumber(digit.textContent))
+)
+
+operatorButtons.forEach((operator) => 
+operator.addEventListener("click", () => setOperation(operator.textContent))
+)
+
+
+function appendNumber(number) {
+    if (currentOperationScreen.textContent === "0" || shouldResetScreen)
+      resetScreen();
+    currentOperationScreen.textContent += number;
+ }
+
+function clear() {
+    currentOperationScreen.textContent = "0";
+    lastOperationScreen.textContent = "";
+    currentNum = "";
+    lastNum = "";
+    currentMode = null;
 }
 
-function setNewMode(newMode){
-    currentMode = newMode;
+function resetScreen() {
+    currentOperationScreen.textContent = "";
+    shouldResetScreen = false;
 }
 
-
-const add = document.getElementById("add");
-const subtract = document.getElementById("subtract");
-const multiply = document.getElementById("multiply");
-const divide = document.getElementById("divide");
-const equals = document.getElementById("equals");
-const digits = document.getElementById("digits");
-const ac = document.getElementById("ac");
-const display = document.getElementById("total");
-
-
-function operate(lastNum, currentMode, currentNum){
+function setOperation(operator) {
+    if (currentMode !== null) evaluate();
+    currentNum = currentOperationScreen.textContent;
+    currentMode = operator;
+    lastOperationScreen.textContent = `${currentNum} ${currentMode}`;
+    shouldResetScreen = true;
 }
 
-function updateDisplay(total) {
-    display.innerText = total;
-}
-
-function setupCalc() {
-    for (let i = 1; i <= 9; i++) {
-        const numElement = document.createElement("button");
-        numElement.id = "number-" + i;
-        numElement.classList.add("digit");
-        numElement.classList.add("press");
-        numElement.textContent = i;
-        digits.appendChild(numElement);
+function evaluate(){
+    if (currentMode === null) return;
+    if (currentMode === "÷" && currentOperationScreen.textContent === "0") {
+        alert("You can't divide by 0!");
+        return;
     }
-    const numElement = document.createElement("button");
-    numElement.id = "number-0";
-    numElement.classList.add("digit");
-    numElement.classList.add("press");
-    numElement.textContent = 0;
-    digits.appendChild(numElement);
+    lastNum = currentOperationScreen.textContent;
+    currentOperationScreen.textContent = roundResult(operate(currentMode, currentNum, lastNum));
+    lastOperationScreen.textContent = `${lastNum} ${currentMode} ${currentNum} =`;
+    currentMode = null;
+}
+    
+function roundResult(number) {
+    return Math.round(number * 1000) / 1000
 }
 
+function handleKeyboardInput(e) {
+    if (e.key >= 0 && e.key <= 9) appendNumber(e.key);
+    if (e.key === "=" || e.key === "Enter") evaluate();
+    if (e.key === "Escape") clear();
+    if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") setOperation(convertOperator(e.key));
+}
 
-window.onload = () => {
-    setupCalc();
-    updateDisplay(total);
-  }
+function convertOperator(keyboardOperator) {
+    if (keyboardOperator === "/") return "÷";
+    if (keyboardOperator === "*") return "x";
+    if (keyboardOperator === "-") return "−";
+    if (keyboardOperator === "+") return "+";
+}
+
+function add(a, b) {
+    return a + b;
+}
+  
+function substract(a, b) {
+    return a - b;
+}
+  
+function multiply(a, b) {
+    return a * b;
+}
+  
+function divide(a, b) {
+    return a / b;
+}
+
+function operate(operator, a, b) {
+    a = Number(a);
+    b = Number(b);
+    switch (operator){
+      case "+":
+        return add(a, b);
+      case "−":
+        return substract(a, b);
+      case "x":
+        return multiply(a, b);
+      case "÷":
+        if (b === 0) return null;
+        else return divide(a, b);
+      default:
+        return null;
+    }
+}

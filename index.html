@@ -20,17 +20,29 @@
     <main class="main">
         <div class="calculator">
             <div class="display">
-                <div id="total"></div>
+                <div class="screen-last" id="lastOperationScreen"></div>
+                <div class="screen-current" id="currentOperationScreen">0</div>
             </div>
-            <div class="btn operators">
-                <button id="add" class="press">+</button>
-                <button id="subtract" class="press">-</button>
-                <button id="multiply" class="press">x</button>
-                <button id="divide" class="press">÷</button>
+            <div id="operators" class="btn operators">
+                <button id="add" class="operator press">+</button>
+                <button id="subtract" class="operator press">-</button>
+                <button id="multiply" class="operator press">x</button>
+                <button id="divide" class="operator press">÷</button>
                 <button id="equals" class="press">=</button>
                 <button id="ac" class="press">AC</button>
             </div>
-            <div id="digits" class="btn digits"></div>
+            <div id="digits" class="btn digits">
+                <button class="digit press" id="number-1">1</button>
+                <button class="digit press" id="number-2">2</button>
+                <button class="digit press" id="number-3">3</button>
+                <button class="digit press" id="number-4">4</button>
+                <button class="digit press" id="number-5">5</button>
+                <button class="digit press" id="number-6">6</button>
+                <button class="digit press" id="number-7">7</button>
+                <button class="digit press" id="number-8">8</button>
+                <button class="digit press" id="number-9">9</button>
+                <button class="digit press" id="number-0">0</button>
+            </div>
         </div>
     </main>
     <footer class="footer">
